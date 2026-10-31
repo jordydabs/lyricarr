@@ -1,0 +1,159 @@
+# Builds and tests Lyricarr on Windows and Linux, and keeps the two binaries
+# as downloadable artifacts of the run (Actions -> the run -> Artifacts).
+#
+# Ubuntu 22.04 rather than the newest runner on purpose: a Linux binary only
+# runs where the glibc is at least as new as the one it was built against,
+# so building on an older system is what lets it run on more of them.
+#
+# It publishes releases too. Bump the version in Cargo.toml, add its section
+# to CHANGELOG.md, rebuild and commit lyricarr.exe and lyricarr, then either
+# push a tag named for the version (v2.2.0) or start this workflow by hand
+# (Actions -> build -> Run workflow) with "release" ticked. Once the build and
+# tests pass, the release job creates the GitHub release: the committed
+# binaries, packed with the hook script and the example config, and the notes
+# from CHANGELOG.md.
+name: build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      release:
+        description: "Publish a GitHub release for the version in Cargo.toml"
+        type: boolean
+        default: false
+      since:
+        description: "Release notes also cover every CHANGELOG version after this one (for versions never released on their own), e.g. 2.0.0"
+        type: string
+        default: ""
+
+# Building and testing write nothing; the release job asks for more below.
+permissions:
+  contents: read
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            artifact: lyricarr-windows-x86_64
+            binary: target/release/lyricarr.exe
+          - os: ubuntu-22.04
+            artifact: lyricarr-linux-x86_64
+            binary: target/release/lyricarr
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Rust toolchain
+        run: rustup toolchain install stable --profile minimal && rustup default stable
+
+      - name: Test
+        run: cargo test --locked
+
+      - name: Build
+        run: cargo build --release --locked
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: ${{ matrix.binary }}
+          if-no-files-found: error
+
+  release:
+    # Only when asked for: a v* tag was pushed, or the workflow was started by
+    # hand with "release" ticked.
+    if: startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'workflow_dispatch' && inputs.release)
+    needs: build
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          REF_TYPE: ${{ github.ref_type }}
+          REF_NAME: ${{ github.ref_name }}
+          SINCE: ${{ inputs.since }}
+        run: |
+          set -euo pipefail
+
+          version=$(sed -n 's/^version *= *"\([^"]*\)".*/\1/p' Cargo.toml | head -n 1)
+          tag="v$version"
+          case "$version" in
+            [0-9]*.[0-9]*.[0-9]*) ;;
+            *) echo "::error::Cannot read a version such as 2.2.0 from Cargo.toml (found '$version')."; exit 1 ;;
+          esac
+          if [ "$REF_TYPE" = tag ] && [ "$REF_NAME" != "$tag" ]; then
+            echo "::error::The tag is $REF_NAME, but Cargo.toml says $version, so the release would be $tag."
+            exit 1
+          fi
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "::error::Release $tag already exists. Bump the version in Cargo.toml and CHANGELOG.md for the next one."
+            exit 1
+          fi
+
+          # The binaries are the ones committed to the repository, built and run
+          # by hand before committing. Make sure they are what they claim to be.
+          [ "$(head -c 2 lyricarr.exe)" = MZ ] || { echo "::error::lyricarr.exe is not a Windows executable."; exit 1; }
+          # A file uploaded through the GitHub web page loses its executable
+          # bit, so set it here rather than trusting the checkout.
+          chmod +x lyricarr Lidarr-Hook.sh
+          reported=$(./lyricarr --version)
+          if [ "$reported" != "lyricarr $version" ]; then
+            echo "::error::lyricarr reports '$reported', not 'lyricarr $version'. Rebuild and commit the binaries first."
+            exit 1
+          fi
+
+          # One archive per system, each with the hook script, the example config
+          # and the licence. A tarball for Linux so the executable bit survives.
+          mkdir -p dist/lyricarr-windows-x86_64 dist/lyricarr-linux-x86_64
+          cp lyricarr.exe Lidarr-Hook.cmd config.example.toml LICENSE dist/lyricarr-windows-x86_64/
+          cp lyricarr Lidarr-Hook.sh config.example.toml LICENSE dist/lyricarr-linux-x86_64/
+          (cd dist && zip -rqX ../lyricarr-windows-x86_64.zip lyricarr-windows-x86_64)
+          tar -C dist --owner=0 --group=0 --numeric-owner -czf lyricarr-linux-x86_64.tar.gz lyricarr-linux-x86_64
+          sha256sum lyricarr-windows-x86_64.zip lyricarr-linux-x86_64.tar.gz > SHA256SUMS.txt
+
+          # Notes: this version's CHANGELOG section, or, with "since", every
+          # section from this version down to (not including) that one.
+          if [ -n "$SINCE" ] && ! grep -qxF "## $SINCE" CHANGELOG.md; then
+            echo "::error::CHANGELOG.md has no '## $SINCE' section to stop at."
+            exit 1
+          fi
+          awk -v v="$version" -v stop="$SINCE" '
+            /^## / {
+              if (on && (stop == "" || $2 == stop)) exit
+              if ($2 == v) on = 1
+            }
+            on
+          ' CHANGELOG.md > changes.md
+          [ -s changes.md ] || { echo "::error::CHANGELOG.md has no '## $version' section."; exit 1; }
+          cat > notes.md <<'EOF'
+          Download the build for your system. There is nothing to install: unpack it and run it.
+
+          | File | For |
+          | --- | --- |
+          | `lyricarr-windows-x86_64.zip` | Windows, 64-bit: `lyricarr.exe` and `Lidarr-Hook.cmd` |
+          | `lyricarr-linux-x86_64.tar.gz` | Linux, 64-bit, glibc 2.31 or newer (Ubuntu 20.04+, Debian 11+, Fedora 32+, RHEL 9): `lyricarr` and `Lidarr-Hook.sh` |
+
+          Each also holds `config.example.toml` and the licence. `SHA256SUMS.txt` has the checksum of both. The same binaries are in the repository itself, and every commit is built and tested on Windows and Linux by GitHub Actions.
+
+          EOF
+          cat changes.md >> notes.md
+
+          gh release create "$tag" \
+            lyricarr-windows-x86_64.zip lyricarr-linux-x86_64.tar.gz SHA256SUMS.txt \
+            --target "$GITHUB_SHA" \
+            --title "Lyricarr $version" \
+            --notes-file notes.md \
+            --latest

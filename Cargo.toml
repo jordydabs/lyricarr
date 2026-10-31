@@ -1,0 +1,79 @@
+[package]
+name        = "lyricarr"
+version     = "2.2.0"
+edition     = "2021"
+rust-version = "1.76"
+description = "Fetch synced lyrics from LRCLIB into .lrc sidecars beside your music (Windows and Linux)"
+readme      = "README.md"
+# PolyForm Noncommercial is not an OSI licence, so crates.io would refuse it.
+# That is fine - this is a Windows GUI program, not a library anyone pulls in -
+# but it means the licence is named by file rather than by SPDX id.
+license-file = "LICENSE"
+publish      = false
+keywords    = ["lyrics", "lrc", "lrclib", "music", "lidarr"]
+categories  = ["multimedia::audio", "command-line-utilities"]
+# repository = "https://github.com/YOUR-USERNAME/lyricarr"
+exclude     = ["docs/", ".github/"]
+
+[[bin]]
+name = "lyricarr"
+path = "src/main.rs"
+
+[dependencies]
+clap                  = { version = "4.5", features = ["derive"] }
+# "persistence" is what remembers the resized columns and the window size;
+# NativeOptions.persistence_path keeps that file in our own data folder.
+eframe                = { version = "0.29", features = ["persistence"] }
+egui                  = "0.29"
+rusqlite              = { version = "0.32", features = ["bundled"] }
+lofty                 = "0.21"
+ureq                  = { version = "2.12", features = ["json"] }
+serde                 = { version = "1", features = ["derive"] }
+serde_json            = "1"
+toml                  = "0.8"
+jwalk                 = "0.8"
+chrono                = "0.4"
+unicode-normalization = "0.1"
+anyhow                = "1"
+ctrlc                 = "3"
+egui_extras           = { version = "0.29", features = ["image"] }
+image                 = { version = "0.25", default-features = false, features = ["png"] }
+opener                = "0.7"
+
+[target.'cfg(windows)'.dependencies]
+# The tray icon and its menu. Windows only: on Linux it needs GTK at build
+# time and an AppIndicator host at run time, and a window that can actually
+# hide - which Wayland does not offer. Linux gets a background service instead.
+tray-icon             = "0.19"
+# the native folder picker, with the system's own common controls
+rfd                   = { version = "0.15", default-features = false, features = ["common-controls-v6"] }
+# Storage_FileSystem / System_IO / Security are the folder monitor's
+# ReadDirectoryChangesW, its overlapped I/O, and CreateFileW's signature;
+# LibraryLoader is the module handle for the window that hears about a drive
+# being ejected.
+windows-sys           = { version = "0.59", features = [
+    "Win32_Foundation", "Win32_UI_WindowsAndMessaging", "Win32_System_Threading",
+    "Win32_System_Registry", "Win32_Storage_FileSystem", "Win32_System_IO",
+    "Win32_Security", "Win32_System_LibraryLoader",
+] }
+
+[target.'cfg(unix)'.dependencies]
+# inotify for the folder monitor, and flock for the single-instance locks.
+libc                  = "0.2"
+# SIGTERM as well as Ctrl-C, so `systemctl stop` lets a scan finish the
+# tracks it has in flight instead of killing it mid-write.
+ctrlc                 = { version = "3", features = ["termination"] }
+
+[target.'cfg(target_os = "linux")'.dependencies]
+# The folder picker through the desktop portal: pure Rust, so building needs
+# no GTK development packages.
+rfd                   = { version = "0.15", default-features = false, features = ["xdg-portal", "async-std"] }
+
+[profile.release]
+opt-level     = 3
+lto           = true
+codegen-units = 1
+strip         = true
+
+[build-dependencies]
+winresource = "0.1"

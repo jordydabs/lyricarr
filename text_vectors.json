@@ -1,0 +1,227 @@
+[
+ {
+  "s": "The Clash",
+  "tidy": "The Clash",
+  "norm_key": "the clash",
+  "strip_feat": "The Clash",
+  "strip_noise": "The Clash",
+  "strip_all": "The Clash",
+  "primary_artist": "The Clash"
+ },
+ {
+  "s": "  The   Clash  ",
+  "tidy": "The Clash",
+  "norm_key": "the clash",
+  "strip_feat": "The Clash",
+  "strip_noise": "The Clash",
+  "strip_all": "The Clash",
+  "primary_artist": "The Clash"
+ },
+ {
+  "s": "Beyoncé",
+  "tidy": "Beyoncé",
+  "norm_key": "beyonce",
+  "strip_feat": "Beyoncé",
+  "strip_noise": "Beyoncé",
+  "strip_all": "Beyoncé",
+  "primary_artist": "Beyoncé"
+ },
+ {
+  "s": "Beyoncé",
+  "tidy": "Beyoncé",
+  "norm_key": "beyonce",
+  "strip_feat": "Beyoncé",
+  "strip_noise": "Beyoncé",
+  "strip_all": "Beyoncé",
+  "primary_artist": "Beyoncé"
+ },
+ {
+  "s": "AC/DC",
+  "tidy": "AC/DC",
+  "norm_key": "acdc",
+  "strip_feat": "AC/DC",
+  "strip_noise": "AC/DC",
+  "strip_all": "AC/DC",
+  "primary_artist": "AC"
+ },
+ {
+  "s": "Jay-Z; Kanye West",
+  "tidy": "Jay-Z; Kanye West",
+  "norm_key": "jayz kanye west",
+  "strip_feat": "Jay-Z; Kanye West",
+  "strip_noise": "Jay-Z; Kanye West",
+  "strip_all": "Jay-Z; Kanye West",
+  "primary_artist": "Jay-Z"
+ },
+ {
+  "s": "Daft Punk & Pharrell",
+  "tidy": "Daft Punk & Pharrell",
+  "norm_key": "daft punk pharrell",
+  "strip_feat": "Daft Punk & Pharrell",
+  "strip_noise": "Daft Punk & Pharrell",
+  "strip_all": "Daft Punk & Pharrell",
+  "primary_artist": "Daft Punk"
+ },
+ {
+  "s": "Sigur Rós",
+  "tidy": "Sigur Rós",
+  "norm_key": "sigur ros",
+  "strip_feat": "Sigur Rós",
+  "strip_noise": "Sigur Rós",
+  "strip_all": "Sigur Rós",
+  "primary_artist": "Sigur Rós"
+ },
+ {
+  "s": "Mötley Crüe",
+  "tidy": "Mötley Crüe",
+  "norm_key": "motley crue",
+  "strip_feat": "Mötley Crüe",
+  "strip_noise": "Mötley Crüe",
+  "strip_all": "Mötley Crüe",
+  "primary_artist": "Mötley Crüe"
+ },
+ {
+  "s": "Get Lucky (feat. Pharrell Williams)",
+  "tidy": "Get Lucky (feat. Pharrell Williams)",
+  "norm_key": "get lucky feat pharrell williams",
+  "strip_feat": "Get Lucky",
+  "strip_noise": "Get Lucky (feat. Pharrell Williams)",
+  "strip_all": "Get Lucky",
+  "primary_artist": "Get Lucky (feat. Pharrell Williams)"
+ },
+ {
+  "s": "Song (Remastered 2011)",
+  "tidy": "Song (Remastered 2011)",
+  "norm_key": "song remastered 2011",
+  "strip_feat": "Song (Remastered 2011)",
+  "strip_noise": "Song",
+  "strip_all": "Song",
+  "primary_artist": "Song (Remastered 2011)"
+ },
+ {
+  "s": "Track [Explicit]",
+  "tidy": "Track [Explicit]",
+  "norm_key": "track explicit",
+  "strip_feat": "Track [Explicit]",
+  "strip_noise": "Track",
+  "strip_all": "Track",
+  "primary_artist": "Track [Explicit]"
+ },
+ {
+  "s": "Thing (Original Mix)",
+  "tidy": "Thing (Original Mix)",
+  "norm_key": "thing original mix",
+  "strip_feat": "Thing (Original Mix)",
+  "strip_noise": "Thing",
+  "strip_all": "Thing",
+  "primary_artist": "Thing (Original Mix)"
+ },
+ {
+  "s": "Name - Remastered",
+  "tidy": "Name - Remastered",
+  "norm_key": "name remastered",
+  "strip_feat": "Name - Remastered",
+  "strip_noise": "Name",
+  "strip_all": "Name - Remastered",
+  "primary_artist": "Name - Remastered"
+ },
+ {
+  "s": "A; B",
+  "tidy": "A; B",
+  "norm_key": "a b",
+  "strip_feat": "A; B",
+  "strip_noise": "A; B",
+  "strip_all": "A; B",
+  "primary_artist": "A; B"
+ },
+ {
+  "s": "A & B",
+  "tidy": "A & B",
+  "norm_key": "a b",
+  "strip_feat": "A & B",
+  "strip_noise": "A & B",
+  "strip_all": "A & B",
+  "primary_artist": "A & B"
+ },
+ {
+  "s": "X vs. Y",
+  "tidy": "X vs. Y",
+  "norm_key": "x vs y",
+  "strip_feat": "X vs. Y",
+  "strip_noise": "X vs. Y",
+  "strip_all": "X vs. Y",
+  "primary_artist": "X vs. Y"
+ },
+ {
+  "s": "Tom and Jerry",
+  "tidy": "Tom and Jerry",
+  "norm_key": "tom and jerry",
+  "strip_feat": "Tom and Jerry",
+  "strip_noise": "Tom and Jerry",
+  "strip_all": "Tom and Jerry",
+  "primary_artist": "Tom"
+ },
+ {
+  "s": "AA1 Richard Thomas",
+  "tidy": "AA1 Richard Thomas",
+  "norm_key": "aa1 richard thomas",
+  "strip_feat": "AA1 Richard Thomas",
+  "strip_noise": "AA1 Richard Thomas",
+  "strip_all": "AA1 Richard Thomas",
+  "primary_artist": "AA1 Richard Thomas"
+ },
+ {
+  "s": "Know Your Rights",
+  "tidy": "Know Your Rights",
+  "norm_key": "know your rights",
+  "strip_feat": "Know Your Rights",
+  "strip_noise": "Know Your Rights",
+  "strip_all": "Know Your Rights",
+  "primary_artist": "Know Your Rights"
+ },
+ {
+  "s": "100 DEAD",
+  "tidy": "100 DEAD",
+  "norm_key": "100 dead",
+  "strip_feat": "100 DEAD",
+  "strip_noise": "100 DEAD",
+  "strip_all": "100 DEAD",
+  "primary_artist": "100 DEAD"
+ },
+ {
+  "s": "+44",
+  "tidy": "+44",
+  "norm_key": "44",
+  "strip_feat": "+44",
+  "strip_noise": "+44",
+  "strip_all": "+44",
+  "primary_artist": "+44"
+ },
+ {
+  "s": "$am",
+  "tidy": "$am",
+  "norm_key": "am",
+  "strip_feat": "$am",
+  "strip_noise": "$am",
+  "strip_all": "$am",
+  "primary_artist": "$am"
+ },
+ {
+  "s": "Song (Live)",
+  "tidy": "Song (Live)",
+  "norm_key": "song live",
+  "strip_feat": "Song (Live)",
+  "strip_noise": "Song (Live)",
+  "strip_all": "Song",
+  "primary_artist": "Song (Live)"
+ },
+ {
+  "s": "Mix (Radio Edit)",
+  "tidy": "Mix (Radio Edit)",
+  "norm_key": "mix radio edit",
+  "strip_feat": "Mix (Radio Edit)",
+  "strip_noise": "Mix",
+  "strip_all": "Mix",
+  "primary_artist": "Mix (Radio Edit)"
+ }
+]

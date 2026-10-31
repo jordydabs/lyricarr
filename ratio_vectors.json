@@ -1,0 +1,202 @@
+[
+ {
+  "a": "know your rights",
+  "b": "know your rights",
+  "ratio": 1.0
+ },
+ {
+  "a": "know your rights",
+  "b": "know your right",
+  "ratio": 0.967741935483871
+ },
+ {
+  "a": "straight to hell",
+  "b": "straight to hell live",
+  "ratio": 0.8648648648648649
+ },
+ {
+  "a": "get lucky",
+  "b": "get lucky feat pharrell williams",
+  "ratio": 0.43902439024390244
+ },
+ {
+  "a": "the clash",
+  "b": "clash",
+  "ratio": 0.7142857142857143
+ },
+ {
+  "a": "",
+  "b": "anything",
+  "ratio": 0.0
+ },
+ {
+  "a": "a",
+  "b": "b",
+  "ratio": 0.0
+ },
+ {
+  "a": "abcdef",
+  "b": "abcdfe",
+  "ratio": 0.8333333333333334
+ },
+ {
+  "a": "daft punk",
+  "b": "daftpunk",
+  "ratio": 0.9411764705882353
+ },
+ {
+  "a": "sailor song original mix",
+  "b": "sailor song",
+  "ratio": 0.6285714285714286
+ },
+ {
+  "a": "interlude",
+  "b": "interlude",
+  "ratio": 1.0
+ },
+ {
+  "a": "100 dead",
+  "b": "100 dead demo",
+  "ratio": 0.7619047619047619
+ },
+ {
+  "a": "bohemian rhapsody",
+  "b": "bohemian rapsody",
+  "ratio": 0.9696969696969697
+ },
+ {
+  "a": "x",
+  "b": "xxxxxxxxxx",
+  "ratio": 0.18181818181818182
+ },
+ {
+  "a": "aaaa",
+  "b": "aa",
+  "ratio": 0.6666666666666666
+ },
+ {
+  "a": "mozart symphony no 40 in g minor k 550",
+  "b": "symphony no 40 in g minor",
+  "ratio": 0.7936507936507936
+ },
+ {
+  "a": "tom jerry",
+  "b": "tom and jerry",
+  "ratio": 0.8181818181818182
+ },
+ {
+  "a": "ab",
+  "b": "ba",
+  "ratio": 0.5
+ },
+ {
+  "a": "cgab b",
+  "b": "a dabg",
+  "ratio": 0.3333333333333333
+ },
+ {
+  "a": "bdb gab",
+  "b": "agad",
+  "ratio": 0.36363636363636365
+ },
+ {
+  "a": " ",
+  "b": "cegc be cbdfb ",
+  "ratio": 0.13333333333333333
+ },
+ {
+  "a": "badh gfhhfed",
+  "b": "cdbe hfhebb g",
+  "ratio": 0.32
+ },
+ {
+  "a": "fch",
+  "b": "ab fffh",
+  "ratio": 0.4
+ },
+ {
+  "a": "hbbehbaehe",
+  "b": "gfahfcbhadec",
+  "ratio": 0.2727272727272727
+ },
+ {
+  "a": "dgghbchg ecg",
+  "b": " egfgdcbccddah",
+  "ratio": 0.3076923076923077
+ },
+ {
+  "a": "ceeacg ffc ah ",
+  "b": "gggbhga",
+  "ratio": 0.09523809523809523
+ },
+ {
+  "a": "bdhc",
+  "b": "fa",
+  "ratio": 0.0
+ },
+ {
+  "a": "ac",
+  "b": "bfabdgcef",
+  "ratio": 0.36363636363636365
+ },
+ {
+  "a": "fhbbhhhheb",
+  "b": "bfe",
+  "ratio": 0.3076923076923077
+ },
+ {
+  "a": "c ad fc ",
+  "b": " ",
+  "ratio": 0.2222222222222222
+ },
+ {
+  "a": "be fc",
+  "b": "d   fd",
+  "ratio": 0.36363636363636365
+ },
+ {
+  "a": "ddgdd hfaa",
+  "b": "ehedfhffbdbdh",
+  "ratio": 0.2608695652173913
+ },
+ {
+  "a": "fdha",
+  "b": "fbbgdhcg",
+  "ratio": 0.5
+ },
+ {
+  "a": "fbghgbcccachc",
+  "b": "hfc  caab ",
+  "ratio": 0.34782608695652173
+ },
+ {
+  "a": "cgddaede dfe",
+  "b": "gcafh g c",
+  "ratio": 0.2857142857142857
+ },
+ {
+  "a": "c  ahcacc",
+  "b": "hb ",
+  "ratio": 0.16666666666666666
+ },
+ {
+  "a": "f",
+  "b": "   hb addea",
+  "ratio": 0.0
+ },
+ {
+  "a": "b h abhf  deh",
+  "b": " h d e dh",
+  "ratio": 0.6363636363636364
+ },
+ {
+  "a": "gbg",
+  "b": "fbdgbdeb",
+  "ratio": 0.36363636363636365
+ },
+ {
+  "a": "cfcechdbghcdc",
+  "b": "g gfgdffbfaf",
+  "ratio": 0.24
+ }
+]

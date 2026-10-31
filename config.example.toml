@@ -1,0 +1,95 @@
+# Lyricarr configuration - EXAMPLE
+#
+# Copy this to config.toml beside lyricarr.exe and edit `roots`. Every
+# other value already matches the built-in default, so you can delete any
+# line you do not want to change.
+#
+# Windows paths use TOML *literal* strings (single quotes) so backslashes need
+# no escaping. Every value below matches the built-in default unless noted;
+# delete a line to fall back to that default.
+
+[library]
+# Lidarr root folder(s). Add more paths to the list if your library is split.
+# Windows:  roots = ['D:\Music']            (or several: ['D:\Music', 'E:\More Music'])
+# Linux:    roots = ['/srv/music']
+# There is no default. Set it here, or use Settings -> Music folders in
+# the window, which rewrites this line for you.
+roots = []
+
+# Only these extensions are treated as audio. Listing the rare ones costs
+# nothing - a format you do not own simply never matches.
+audio_extensions = [
+    ".mp3", ".flac", ".m4a", ".ogg", ".opus", ".wma", ".aiff", ".aif", ".wav",
+]
+
+# Directories never descended into.
+skip_dir_names = [
+    ".recycle", "$recycle.bin", "system volume information", ".stversions",
+]
+
+
+[output]
+# What to do when LRCLIB only has unsynced lyrics:
+#   "lrc"  write them to .lrc anyway (Emby/Jellyfin/Plex show them, unsynced)
+#   "txt"  write them to .txt instead, keeping .lrc meaning "synced"
+#   "skip" don't write them at all
+plain_lyrics = "lrc"
+
+# Replace sidecar files that already exist. Off by default so a rerun can
+# never clobber lyrics you hand-corrected.
+overwrite = false
+
+# Prepend [ti:]/[ar:]/[al:]/[length:] tags to synced files. Off by default: the
+# file then holds exactly what LRCLIB served, which the widest set of players
+# accepts without complaint.
+add_id_tags = false
+
+# Write a tiny marker .lrc for tracks LRCLIB flags as instrumental. Off by
+# default - the state database already remembers them, so they are never
+# re-queried either way.
+instrumental_marker = false
+
+# Ignore suspiciously short payloads; a few stray characters are not lyrics.
+min_lyrics_chars = 20
+
+
+[lrclib]
+host = "lrclib.net"
+
+# Be a good neighbour: LRCLIB is free and donation-funded. 3 req/s across 4
+# workers is brisk but polite, and the client backs every worker off together
+# when the server answers 503 ServerOverloaded.
+requests_per_second = 3.0
+workers = 4
+timeout_seconds = 20
+max_retries = 4
+
+# Duration windows in seconds. LRCLIB's own /api/get tolerance measures at
+# about +/-5s; the search fallback is scored against the wider window.
+duration_tolerance_get = 5
+duration_tolerance_search = 10
+
+# Accept an /api/search candidate only above this combined score, and only
+# when the title is at least this similar. Raise them if you see bad matches.
+min_score = 0.80
+min_title_ratio = 0.72
+
+# Relaxed last resort, unsynced text only. Plain lyrics carry no timestamps, so
+# a release of a different length (radio edit, live cut, bonus intro) still has
+# the right words - but the title and artist must match almost exactly, and
+# synced lyrics are never accepted this way. Set plain_duration_tolerance to a
+# large number to ignore length entirely.
+plain_duration_tolerance = 45
+plain_min_title_ratio = 0.90
+plain_min_artist_ratio = 0.80
+
+
+[run]
+# Default: data\lyricarr.db beside the executable (on Linux, unless there is
+# a config.toml or data folder beside it: ~/.local/share/lyricarr). Worth moving off a slow
+# media drive if that is where Lyricarr lives - this is a SQLite database
+# with a row per track, and it is read and written constantly during a scan.
+# database = 'C:\Lyricarr\data\lyricarr.db'
+# log_file = 'C:\Lyricarr\data\lyricarr.log'
+log_level = "INFO"
+progress_seconds = 15
